@@ -9,9 +9,10 @@ using namespace std;
 	//string username;
 	//string password;
 
-	bool Manager::login(Account account)
-	{
-		cout << "Manager logging in" << endl;
-		return true;
-	}
+	//bool Manager::login(Account account)
+	//{
+	//	//check if password given is the same as whats in managers.txt
+	//	cout << "Manager logging in" << endl;
+	//	return true;
+	//}
 

@@ -11,41 +11,38 @@ int main()
     User user;
     Manager manager;
     int choice;
+    string username;
+    string password;
+    //map of user objects
+    
+    //for each loop to grab all user/manager objects needed
+    //grabs data from users.txt and managers.txt
 
     cout << "Choose login option 1 (user) or 3 (manager)" << endl;
     cin >> choice;
+    cout << "Username: ";
+    cin >> username;
+    cout << "Password: ";
+    cin >> password;
 
     //if they chose 1, we know we are looking for a user address
-    if (choice == 1)
+    if (choice == 1 || choice == 3)
     {
-        ptr = &user;
-        //polymorphically logging in an account object as it's subclass (user)
-        if (ptr->login(user))
+        if (login(username, password))
         {
-            //user login was success - loop options to perform on user object here
+            cout << "Valid Login" << endl;
         }
         else
         {
-            //go back to main options again
-        }
-
-        
-    }
-
-    //if they chose 3, we know we are looking for a manager address
-    if (choice == 3)
-    {
-        ptr = &manager;
-        //polymorphically logging in an account object as it's subclass (manager)
-        if (ptr->login(manager))
-        {
-            //manager login was success. 
-            //list options manager object can perform on any user object (either in seperate function/class or here)
-        }
-        else
-        {
-            //login failed. try again
+            cout << "Invalid Login" << endl;
         }
     }
+}
 
+
+bool login(string username, string password)
+{
+    //if username exists in our table of users
+    //authenticate it against he password
+    //return true if valid, false if not
 }

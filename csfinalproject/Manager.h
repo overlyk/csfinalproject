@@ -15,7 +15,7 @@ private:
 
 public:
 	//inherited from Account
-	bool login(Account account);
+	/*bool login(Account account);*/
 	
 
 };

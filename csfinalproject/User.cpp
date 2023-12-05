@@ -8,8 +8,9 @@ using namespace std;
 	//string username;
 	//string password;
 	
-	bool User::login(Account account)
-	{
-		cout << "User logging in" << endl;;
-		return true;
-	}
+	//bool User::login(Account account)
+	//{
+	//	//check if password given is the same as whats in users.txt
+	//	cout << "User logging in" << endl;;
+	//	return true;
+	//}
