@@ -134,6 +134,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Account.h" />
+    <ClInclude Include="AccountManager.h" />
     <ClInclude Include="Manager.h" />
     <ClInclude Include="User.h" />
   </ItemGroup>
