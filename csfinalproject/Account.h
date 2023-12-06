@@ -16,7 +16,7 @@ public:
 	~Account();
 	string virtual getUsername();
 	string virtual getPassword();
-	bool virtual login(Account account);
+	//bool virtual login(Account account);
 
 
 };
