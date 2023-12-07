@@ -12,6 +12,14 @@ Account::Account()
 
 bool Account::login(Account account)
 {
-	cout << "Passed just an account" << endl;
 	return true;
+}
+
+string Account::getPassword()
+{
+	return this->password;
+}
+string Account::getUsername()
+{
+	return this->username;
 }

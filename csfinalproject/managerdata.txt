@@ -1,0 +1,6 @@
+#
+manager
+mymanagerpassword
+#
+manager2
+otherdefault

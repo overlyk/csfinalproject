@@ -1,17 +1,22 @@
 #pragma once
+
 #include <map>
 #include "Account.h"
+
 using namespace std;
-class AccountManager()
+
+class AccountManager
 {
 private:
 	int highestAccountNum;
-	int getNextAccountNum();
+	//int getNextAccountNum();
 	map<string, Account*> accountMap;
+	void setupManagers(string filePath);
+	void setupUsers(string filePath);
 public:
 	AccountManager(string managerPath, string accountPath);
-	~AccountManager();
-	void userLogin();
-	void managerLogin();
-	void createAccount();
-}
+	//~AccountManager();
+	//void userLogin();
+	//void managerLogin();
+	//void createAccount();
+};

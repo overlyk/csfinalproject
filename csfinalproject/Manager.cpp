@@ -15,4 +15,8 @@ using namespace std;
 	//	cout << "Manager logging in" << endl;
 	//	return true;
 	//}
+Manager::Manager(string username, string password) {
+	this->username = username;
+	this->password = password;
 
+}
