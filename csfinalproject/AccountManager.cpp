@@ -7,8 +7,9 @@ using namespace std;
 
 AccountManager::AccountManager(string managerPath, string accountPath) 
 {
+	this->highestAccountNum = -1;
 	setupManagers(managerPath);
-	//setupUsers(accountPath);
+	setupUsers(accountPath);
 	cout << accountMap["manager2"]->getPassword() << endl;
 
 }
@@ -20,7 +21,6 @@ void AccountManager::setupManagers(string filePath)
 	{
 		string line;
 		int linePosition = 0;
-		bool hasError;
 		string currentUsername;
 		string currentPassword;
 		while (getline(inputFile, line))
@@ -28,7 +28,6 @@ void AccountManager::setupManagers(string filePath)
 			if (line == "#")
 			{
 				linePosition = 1;
-				hasError = false;
 			}
 			else
 			{
@@ -43,6 +42,50 @@ void AccountManager::setupManagers(string filePath)
 				}
 				linePosition++;
 
+			}
+		}
+	}
+	//probably need to close inputFile here
+}
+
+void AccountManager::setupUsers(string userPath)
+{
+	
+	ifstream inputFile(userPath);
+	if (inputFile.is_open())
+	{
+		string line;
+		int linePosition = 0;
+		bool isReadingTransactionHistory = false;
+		string currentUsername;
+		string currentPassword;
+		int currentAccountNumber;
+		double currentAccountBalance;
+		bool isError;
+		User* currentUser;
+		
+		while (getline(inputFile, line))
+		{
+			if (line == "#")
+			{
+				linePosition = 1;
+				isReadingTransactionHistory = false;
+				isError = false;
+			}
+			else if (line == "~")
+			{
+				linePosition = 1;
+				isReadingTransactionHistory = true;
+			}
+			else if (!isReadingTransactionHistory)
+			{
+				switch (linePosition)
+				{
+				case 1:
+					currentUsername = line;
+					break;
+
+				}
 			}
 		}
 	}
