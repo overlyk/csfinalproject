@@ -9,6 +9,13 @@ Account::Account()
 {
 
 }
+//
+//bool Account::login(Account account)
+//{
+//	cout << "Passed just an account" << endl;
+//	return true;
+//}
+
 
 bool Account::login(Account account)
 {
