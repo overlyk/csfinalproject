@@ -1,0 +1,18 @@
+#
+johnsmith
+securepassword
+1000000
+270.52
+~
+transaction1
+15.01
+12-05-23 9:05.23
+~
+transaction2
+38.05
+12-06-23 15:43.07
+#
+otheruser
+wasd
+1000001
+450.03

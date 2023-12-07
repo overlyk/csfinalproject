@@ -16,3 +16,17 @@ Account::Account()
 //	return true;
 //}
 
+
+bool Account::login(Account account)
+{
+	return true;
+}
+
+string Account::getPassword()
+{
+	return this->password;
+}
+string Account::getUsername()
+{
+	return this->username;
+}

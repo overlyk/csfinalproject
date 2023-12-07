@@ -16,6 +16,7 @@ private:
 public:
 	//inherited from Account
 	/*bool login(Account account);*/
+	Manager(string username, string password);
 	
 
 };

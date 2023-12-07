@@ -1,48 +1,49 @@
 #include <iostream>
 #include "User.h"
 #include "Manager.h"
+#include "AccountManager.h"
 
 using namespace std;
 
 int main()
 {
 
-    Account* ptr;
+    /*Account* ptr;
     User user;
     Manager manager;
     int choice;
     string username;
-    string password;
+    string password;*/
     //map of user objects
     
     //for each loop to grab all user/manager objects needed
     //grabs data from users.txt and managers.txt
-
-    cout << "Choose login option 1 (user) or 3 (manager)" << endl;
-    cin >> choice;
-    cout << "Username: ";
-    cin >> username;
-    cout << "Password: ";
-    cin >> password;
-
-    //if they chose 1, we know we are looking for a user address
-    if (choice == 1 || choice == 3)
+    cout << "hello world" << endl;
+    AccountManager accountManager("managerdata.txt", "userdata.txt");
+    /*
+    int option = 0;
+    while (option != 4)
     {
-        if (login(username, password))
+        cout << "Select an option:\n1: Create Account\n2: User Login\n3: Manager Login\n4: Exit" << endl;
+        cin >> option;
+        switch (option)
         {
-            cout << "Valid Login" << endl;
+        case 1:
+            accountManager.createAccount();
+            break;
+        case 2:
+            accountManager.userLogin();
+            break;
+        case 3:
+            accountManager.managerLogin();
+            break;
+        case 4:
+            break;
+        default:
+            cout << "Invalid input" << endl;
         }
-        else
-        {
-            cout << "Invalid Login" << endl;
-        }
-    }
-}
 
-
-bool login(string username, string password)
-{
-    //if username exists in our table of users
-    //authenticate it against he password
-    //return true if valid, false if not
+    }*/
+    cout << "Thank you for using the program.  Goodbye.";
+    return 0;
 }
