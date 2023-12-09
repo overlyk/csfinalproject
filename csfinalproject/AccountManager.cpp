@@ -64,7 +64,7 @@ bool AccountManager::authenticate()
 
 	cout << "You have exceeded the maximum amount of attempts to login. \n" << endl;
 	return false;
-	}
+}
 
 //first calls authenticate() to see if login is valid and get memory address of account
 //if authenticated as a user, start user choice selection
@@ -75,12 +75,9 @@ void AccountManager::userLogin()
 
 	if (loginSuccess)
 	{
-		user = (User*)loginAccount;
-		loginSuccess = true;
-	}
-	else
-	{
-		loginSuccess = false;
+		//if authenticate returned true, then initialize the User pointer to the memory of authenticated account
+		//do this here instead of the while loop so it only occurs once
+		user = (User*)loginAccount; 
 	}
 
 	int option = 0;
@@ -124,11 +121,9 @@ void AccountManager::managerLogin()
 
 	if (loginSuccess)
 	{
-		 manager = (Manager*)loginAccount;
-	}
-	else
-	{
-		loginSuccess = false;
+		//if authenticate returned true, then initialize the Manager pointer to the memory of authenticated account
+		//do this here instead of the while loop so it only occurs once
+		 manager = (Manager*)loginAccount; 
 	}
 
 	int option = 0;
