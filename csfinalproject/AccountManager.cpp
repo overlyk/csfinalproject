@@ -10,6 +10,7 @@ AccountManager::AccountManager(string managerPath, string accountPath)
 	this->highestAccountNum = -1;
 	setupManagers(managerPath);
 	setupUsers(accountPath);
+	loginAccount = NULL;
 }
 
 AccountManager::~AccountManager()
@@ -17,10 +18,14 @@ AccountManager::~AccountManager()
 
 }
 
-Account* AccountManager::authenticate()
+//contains main loop for authenticating a login to be used for any class type
+//3 attempts to login allowed
+//if account is valid, set address to loginAccount pointer to address of account in map
+bool AccountManager::authenticate()
 {
 	string username;
 	string password;
+
 	bool loginSuccess = false;
 	int count = 3;
 	cout << "Welcome to the login screen" << endl;
@@ -39,9 +44,10 @@ Account* AccountManager::authenticate()
 
 			if (accountMap[username]->getPassword() == password)
 			{
-				cout << "Logging in... \n" << endl;
 				cout << "Welcome " << username << "!!" << endl;
-				return accountMap[username];
+				cout << "Logging in... \n" << endl;
+				loginAccount = accountMap[username]; //update pointer to valid user memory address
+				return true;
 			}
 			else
 			{
@@ -57,21 +63,19 @@ Account* AccountManager::authenticate()
 	}
 
 	cout << "You have exceeded the maximum amount of attempts to login. \n" << endl;
-	return NULL;
-
 	}
 
-
+//first calls authenticate() to see if login is valid and get memory address of account
+//if authenticated as a user, start user choice selection
 void AccountManager::userLogin()
 {
 	User* user = NULL;
-	Account* account = authenticate();
-	bool loginSuccess;
+	bool loginSuccess = authenticate();
 
-	if (account != NULL)
+	if (loginSuccess)
 	{
+		user = (User*)loginAccount;
 		loginSuccess = true;
-		user = (User*)account;
 	}
 	else
 	{
@@ -79,6 +83,7 @@ void AccountManager::userLogin()
 	}
 
 	int option = 0;
+
 	while (loginSuccess)
 	{
 		cout << "1: Print Balance\n2: Print History\n3: Withdraw\n4: Deposit\n5: Log out\nSelect an Option: ";
@@ -109,23 +114,21 @@ void AccountManager::userLogin()
 	}
 }
 
+//first calls authenticate() to see if login is valid and get memory address of account
+//if authenticated as a manager, start manager choice selection
 void AccountManager::managerLogin()
 {
 	Manager* manager = NULL;
-	Account* account = authenticate();
-	bool loginSuccess;
+	bool loginSuccess = authenticate();
 
-
-	if (account != NULL)
+	if (loginSuccess)
 	{
-		loginSuccess = true;
-		 manager = (Manager*)account;
+		 manager = (Manager*)loginAccount;
 	}
 	else
 	{
 		loginSuccess = false;
 	}
-
 
 	int option = 0;
 	while (loginSuccess)
