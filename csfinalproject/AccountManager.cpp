@@ -37,7 +37,7 @@ bool AccountManager::authenticate()
 		cout << "Username: ";
 		cin >> username;
 
-		if (accountMap.count(username) == 1)
+		if (accountMap.count(username) == 1) //if username is a valid key in the map
 		{
 			cout << "Password: ";
 			cin >> password;
@@ -63,6 +63,7 @@ bool AccountManager::authenticate()
 	}
 
 	cout << "You have exceeded the maximum amount of attempts to login. \n" << endl;
+	return false;
 	}
 
 //first calls authenticate() to see if login is valid and get memory address of account
