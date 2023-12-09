@@ -15,7 +15,6 @@ public:
 	Account();
 	virtual string getUsername();
 	virtual string getPassword();
-	bool virtual login(Account account);
 	virtual string toString();
 
 

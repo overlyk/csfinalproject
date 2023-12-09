@@ -11,16 +11,11 @@ using namespace std;
 class User : public Account
 {
 private:
-	//these two inherited from Account
-	//string username;
-	//string password;
 	int accountNumber;
 	double balance;
 	list<Transaction> transactions;
 
 public:
-	//inherited from Account
-	/*bool login(Account account);*/
 	User(string username, string password, int accountNumber, double balance);
 	~User();
 	list<Transaction> getTransactionHistory();

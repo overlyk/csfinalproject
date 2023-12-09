@@ -10,10 +10,10 @@ Account::Account()
 
 }
 
-bool Account::login(Account account)
-{
-	return true;
-}
+//bool Account::login(Account account)
+//{
+//	return true;
+//}
 
 string Account::getPassword()
 {
@@ -26,4 +26,5 @@ string Account::getUsername()
 string Account::toString()
 {
 	string returnString = "#\n" + this->username + "\n" + this->password + "\n";
+	return returnString;
 }
