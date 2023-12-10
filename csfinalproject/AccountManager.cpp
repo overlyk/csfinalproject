@@ -73,6 +73,7 @@ void AccountManager::userLogin()
 {
 	User* user = NULL;
 	bool loginSuccess = authenticate(); //returns true or false if valid user logging in
+	string transactionHistory = "";
 
 	if (loginSuccess)
 	{
@@ -95,7 +96,15 @@ void AccountManager::userLogin()
 			cout << "Your balance is: $" << user->getBalance() << endl;
 			break;
 		case 2:
-			cout << "Your history is: " << user->getTransactionHistory() << endl;
+			transactionHistory = user->getTransactionHistory();
+			if (transactionHistory == "")
+			{
+				cout << "You have no transactions recorded yet. Spend or deposit some money! \n" << endl;
+			}
+			else
+			{
+				cout << "Your history is: " << user->getTransactionHistory() << endl;
+			}
 			break;
 		case 3:
 			user->withdraw();
@@ -133,19 +142,20 @@ void AccountManager::managerLogin()
 	while (loginSuccess)
 	{
 		cout << "Main Manager Menu" << endl;
-		cout << "1: Print Balance\n2: Log out\nSelect an Option: ";
+		cout << "1: Print User Data\n2: Log out\nSelect an Option: ";
 		cin >> option;
 		cout << endl;
 		switch (option)
 		{
 		case 1:
-			cout << "What user do you want the history of? ";
+			cout << "User Information Portal" << endl;
+			cout << "Username of account you want the information of: ";
 			cin >> userUsername;
 
 			if (accountMap.count(userUsername) == 1)
 			{
 				userChoice = (User*)accountMap[userUsername];
-				userChoice->toString();
+				cout << userChoice->toString();
 			}
 			else
 			{

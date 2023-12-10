@@ -19,7 +19,7 @@ User::User(string username, string password, int accountNumber, double balance)
 }
 string User::getTransactionHistory()
 {
-	string returnString = "\n";
+	string returnString = "";
 	for (const Transaction transaction : transactions)
 	{
 		returnString += "~\n" + transaction.getTransactionName() + "\n";
@@ -43,11 +43,20 @@ void User::addTransaction(string dateTime, string transactionName, double transa
 string User::toString()
 {
 	string returnString = "#\n" + this->username + "\n" + this->password + "\n" + to_string(this->accountNumber) + "\n" + to_string(this->balance) + "\n";
-	for (const Transaction transaction : transactions)
+
+	if (transactions.empty())
 	{
-		returnString += "~\n" + transaction.getTransactionName() + "\n";
-		returnString += to_string(transaction.getTransactionAmount()) + "\n";
-		returnString += transaction.getDateTime() + "\n";
+		returnString += "User has no transactions recorded yet!\n\n";
+	}
+	else
+	{
+		for (const Transaction transaction : transactions)
+		{
+			returnString += "~\n" + transaction.getTransactionName() + "\n";
+			returnString += to_string(transaction.getTransactionAmount()) + "\n";
+			returnString += transaction.getDateTime() + "\n";
+		}
+		returnString += "\n";
 	}
 	return returnString;
 }
