@@ -12,9 +12,8 @@ class Manager : public Account
 private:
 
 public:
-	//inherited from Account
+
 	Manager(string username, string password);
-	void getHistory();
 	
 	
 

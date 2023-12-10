@@ -90,17 +90,16 @@ void AccountManager::userLogin()
 		switch (option)
 		{
 		case 1:
-			
-			//print balance
+			cout << "Your balance is: $" << user->getBalance() << endl;
 			break;
 		case 2:
-			//print history
+			cout << "Your history is: " << user->getTransactionHistory() << endl;
 			break;
 		case 3:
-			//withdraw
+			user->withdraw();
 			break;
 		case 4:
-			//deposit
+			user->deposit();
 			break;
 		case 5:
 			cout << "Goodbye. \n" << endl;
@@ -117,6 +116,8 @@ void AccountManager::userLogin()
 void AccountManager::managerLogin()
 {
 	Manager* manager = NULL;
+	User* userChoice = NULL;
+	string userUsername = "";
 	bool loginSuccess = authenticate();
 
 	if (loginSuccess)
@@ -135,7 +136,18 @@ void AccountManager::managerLogin()
 		switch (option)
 		{
 		case 1:
-			manager->getHistory();
+			cout << "What user do you want the history of? ";
+			cin >> userUsername;
+
+			if (accountMap.count(userUsername) == 1)
+			{
+				userChoice = (User*)accountMap[userUsername];
+				userChoice->toString();
+			}
+			else
+			{
+				cout << "User does not exist " << endl;
+			}
 			break;
 		case 2:
 			cout << "Goodbye. \n" << endl;
@@ -186,43 +198,43 @@ void AccountManager::setupManagers(string filePath)
 
 void AccountManager::setupUsers(string userPath)
 {
-	//
-	//ifstream inputFile(userPath);
-	//if (inputFile.is_open())
-	//{
-	//	string line;
-	//	int linePosition = 0;
-	//	bool isReadingTransactionHistory = false;
-	//	string currentUsername;
-	//	string currentPassword;
-	//	int currentAccountNumber;
-	//	double currentAccountBalance;
-	//	bool isError;
-	//	User* currentUser;
-	//	
-	//	while (getline(inputFile, line))
-	//	{
-	//		if (line == "#")
-	//		{
-	//			linePosition = 1;
-	//			isReadingTransactionHistory = false;
-	//			isError = false;
-	//		}
-	//		else if (line == "~")
-	//		{
-	//			linePosition = 1;
-	//			isReadingTransactionHistory = true;
-	//		}
-	//		else if (!isReadingTransactionHistory)
-	//		{
-	//			switch (linePosition)
-	//			{
-	//			case 1:
-	//				currentUsername = line;
-	//				break;
+	
+	ifstream inputFile(userPath);
+	if (inputFile.is_open())
+	{
+		string line;
+		int linePosition = 0;
+		bool isReadingTransactionHistory = false;
+		string currentUsername;
+		string currentPassword;
+		int currentAccountNumber;
+		double currentAccountBalance;
+		bool isError;
+		User* currentUser;
+		
+		while (getline(inputFile, line))
+		{
+			if (line == "#")
+			{
+				linePosition = 1;
+				isReadingTransactionHistory = false;
+				isError = false;
+			}
+			else if (line == "~")
+			{
+				linePosition = 1;
+				isReadingTransactionHistory = true;
+			}
+			else if (!isReadingTransactionHistory)
+			{
+				switch (linePosition)
+				{
+				case 1:
+					currentUsername = line;
+					break;
 
-	//			}
-	//		}
-	//	}
-	//}
+				}
+			}
+		}
+	}
 }

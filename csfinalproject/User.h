@@ -18,11 +18,13 @@ private:
 public:
 	User(string username, string password, int accountNumber, double balance);
 	~User();
-	list<Transaction> getTransactionHistory();
+	string getTransactionHistory();
 	int getAccountNumber();
 	double getBalance();
 	void addTransaction(string dateTime, string transactionName, double transactionAmount);
 	string toString();
+	void withdraw();
+	void deposit();
 
 
 };
