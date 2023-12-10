@@ -72,19 +72,25 @@ bool AccountManager::authenticate()
 void AccountManager::userLogin()
 {
 	User* user = NULL;
-	bool loginSuccess = authenticate(); //returns true or false if valid user logging in
-	string transactionHistory = "";
 
-	if (loginSuccess)
+	//use authenticate() to check if login is true or false
+	//if true, assign our pointer to the accounts memory address
+	//if false, explicitly exit out of the login process back to main menu
+	if (authenticate()) 
 	{
-		//if authenticate returned true, then initialize the User pointer to the memory of authenticated account
-		//do this here instead of the while loop so it only occurs once
 		user = (User*)loginAccount; 
 	}
+	else
+	{
+		return;
+	}
 
+	//create these variables down here to save memory allocation/speed in case the login was invalid
+	string transactionHistory = "";
 	int option = 0;
+	bool loggedIn = true;
 
-	while (loginSuccess)
+	while (loggedIn)
 	{
 		cout << "Main User Menu" << endl;
 		cout << "1: Print Balance\n2: Print History\n3: Withdraw\n4: Deposit\n5: Log out\nSelect an Option: ";
@@ -96,15 +102,8 @@ void AccountManager::userLogin()
 			cout << "Your balance is: $" << user->getBalance() << endl;
 			break;
 		case 2:
-			transactionHistory = user->getTransactionHistory();
-			if (transactionHistory == "")
-			{
-				cout << "You have no transactions recorded yet. Spend or deposit some money! \n" << endl;
-			}
-			else
-			{
-				cout << "Your history is: " << user->getTransactionHistory() << endl;
-			}
+			//remove extra text?
+			cout << "Your history is: \n" << user->getTransactionHistory() << endl;
 			break;
 		case 3:
 			user->withdraw();
@@ -114,7 +113,7 @@ void AccountManager::userLogin()
 			break;
 		case 5:
 			cout << "Goodbye. \n" << endl;
-			loginSuccess = false;
+			loggedIn = false;
 			break;
 		default:
 			cout << "Invalid input" << endl;
@@ -127,19 +126,26 @@ void AccountManager::userLogin()
 void AccountManager::managerLogin()
 {
 	Manager* manager = NULL;
-	User* userChoice = NULL; //will eventually point to memory address of a user we want history of
-	string userUsername = "";
-	bool loginSuccess = authenticate(); //returns true or false if valid manager logging in
 
-	if (loginSuccess)
+	//use authenticate() to check if login is true or false
+	//if true, assign our manager pointer to the accounts memory address
+	//if false, explicitly exit out of the login process back to main menu
+	if (authenticate())
 	{
-		//if authenticate returned true, then initialize the Manager pointer to the memory of authenticated account
-		//do this here instead of the while loop so it only occurs once
-		 manager = (Manager*)loginAccount; 
+		manager = (Manager*)loginAccount;
+	}
+	else
+	{
+		return;
 	}
 
+	//create these variables down here to save memory allocation/speed in case the login was invalid
+	User* userChoice = NULL; //will eventually point to memory address of a user we want history of
+	string userUsername = "";
 	int option = 0;
-	while (loginSuccess)
+	bool loggedIn = true;
+
+	while (loggedIn)
 	{
 		cout << "Main Manager Menu" << endl;
 		cout << "1: Print User Data\n2: Log out\nSelect an Option: ";
@@ -155,7 +161,7 @@ void AccountManager::managerLogin()
 			if (accountMap.count(userUsername) == 1)
 			{
 				userChoice = (User*)accountMap[userUsername];
-				cout << userChoice->toString();
+				cout << userChoice->toString() + "\n";
 			}
 			else
 			{
@@ -164,7 +170,7 @@ void AccountManager::managerLogin()
 			break;
 		case 2:
 			cout << "Goodbye. \n" << endl;
-			loginSuccess = false;
+			loggedIn = false;
 			break;
 		default:
 			cout << "Invalid input" << endl;
