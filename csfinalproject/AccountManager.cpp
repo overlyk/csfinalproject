@@ -85,7 +85,7 @@ void AccountManager::userLogin()
 
 	while (loginSuccess)
 	{
-		cout << "Main Manager Menu" << endl;
+		cout << "Main User Menu" << endl;
 		cout << "1: Print Balance\n2: Print History\n3: Withdraw\n4: Deposit\n5: Log out\nSelect an Option: ";
 		cin >> option;
 		cout << endl;
@@ -118,7 +118,7 @@ void AccountManager::userLogin()
 void AccountManager::managerLogin()
 {
 	Manager* manager = NULL;
-	User* userChoice = NULL; //will point to address of user we want history of
+	User* userChoice = NULL; //will eventually point to memory address of a user we want history of
 	string userUsername = "";
 	bool loginSuccess = authenticate(); //returns true or false if valid manager logging in
 
@@ -132,7 +132,7 @@ void AccountManager::managerLogin()
 	int option = 0;
 	while (loginSuccess)
 	{
-		cout << "Main User Menu" << endl;
+		cout << "Main Manager Menu" << endl;
 		cout << "1: Print Balance\n2: Log out\nSelect an Option: ";
 		cin >> option;
 		cout << endl;

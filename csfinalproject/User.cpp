@@ -51,6 +51,7 @@ string User::toString()
 	}
 	return returnString;
 }
+
 void User::withdraw()
 {
 	cout << "Withdraw Cash -  Type -1 to Exit" << endl;
@@ -72,7 +73,7 @@ void User::withdraw()
 		{
 			cout << "Invalid withdrawal. Not enough cash in account" << endl;
 		}
-		else if (withdrawAmount < 0)
+		else if (withdrawAmount <= 0)
 		{
 			cout << "Please enter a positive number " << endl;
 		}
@@ -83,10 +84,12 @@ void User::withdraw()
 
 			balance = balance - withdrawAmount;
 
-
-			time_t my_time = time(NULL);
-
+			//my_time is used to store pointer to address that stores current system clock time (automatic when initialized as NULL)
+			//ctime() translates the DateTime at that memory address into a string
+			//suppress compiler warning by defining _CRT_SECURE_NO_WARNINGS by include statements
+			time_t my_time = time(NULL); 
 			addTransaction(ctime(&my_time), withdrawName, withdrawAmount);
+
 			cout << "Your balance is now: " << this->balance << endl;
 			isValidWithdraw = true;
 		}
@@ -122,9 +125,10 @@ void User::deposit()
 
 			this->balance = this->balance + depositAmount;
 
-
+			//my_time is used to store pointer to address that stores current system clock time (automatic when initialized as NULL)
+			//ctime() translates the DateTime at that memory address into a string
+			//suppress compiler warning by defining _CRT_SECURE_NO_WARNINGS by include statements
 			time_t my_time = time(NULL);
-
 			addTransaction(ctime(&my_time), depositName, depositAmount);
 
 			cout << "Your balance is now: " << this->balance << endl;
