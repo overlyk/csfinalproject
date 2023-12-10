@@ -51,10 +51,9 @@ string User::toString()
 	}
 	return returnString;
 }
-
 void User::withdraw()
 {
-	cout << "Withdraw Cash" << endl;
+	cout << "Withdraw Cash -  Type -1 to Exit" << endl;
 	bool isValidWithdraw = false;
 
 	int withdrawAmount;
@@ -63,7 +62,7 @@ void User::withdraw()
 	while (!isValidWithdraw)
 	{
 		
-		cout << "How much do you want to withdraw? Type -1 to Exit";
+		cout << "Withdrawal amount: ";
 		cin >> withdrawAmount;
 		if (withdrawAmount == -1)
 		{
@@ -88,16 +87,15 @@ void User::withdraw()
 			time_t my_time = time(NULL);
 
 			addTransaction(ctime(&my_time), withdrawName, withdrawAmount);
-			cout << "Your balance is now: " << this->balance;
+			cout << "Your balance is now: " << this->balance << endl;
 			isValidWithdraw = true;
 		}
 	}
 
 }
-
 void User::deposit()
 {
-	cout << "Deposit Cash" << endl;
+	cout << "Deposit Cash -  Type -1 to Exit" << endl;
 	bool isValidDeposit = false;
 
 	int depositAmount;
@@ -106,30 +104,30 @@ void User::deposit()
 	while (!isValidDeposit)
 	{
 
-		cout << "How much do you want to deposit? Type -1 to Exit";
+		cout << "Deposit amount: ";
 		cin >> depositAmount;
 
 		if (depositAmount == -1)
 		{
 			return;
 		}
-		else if (depositAmount < 0)
+		else if (depositAmount <= 0)
 		{
 			cout << "Please enter a positive number " << endl;
 		}
 		else
 		{
 			cout << "Enter name/reason for deposit: ";
-			cin >> depositAmount;
+			cin >> depositName;
 
-			balance = balance + depositAmount;
+			this->balance = this->balance + depositAmount;
 
 
 			time_t my_time = time(NULL);
 
 			addTransaction(ctime(&my_time), depositName, depositAmount);
 
-			cout << "Your balance is now: " << this->balance;
+			cout << "Your balance is now: " << this->balance << endl;
 			isValidDeposit = true;
 		}
 	}
