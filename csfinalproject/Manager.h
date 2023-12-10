@@ -6,6 +6,8 @@
 
 using namespace std;
 
+string username;
+string password;
 
 class Manager : public Account
 {
