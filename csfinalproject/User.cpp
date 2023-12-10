@@ -17,9 +17,14 @@ User::User(string username, string password, int accountNumber, double balance)
 	this->accountNumber = accountNumber;
 	this->balance = balance;
 }
+//returns our history as a string so we can isolate our transaction data when requesting it as a user
 string User::getTransactionHistory()
 {
 	string returnString = "";
+	if (transactions.empty())
+	{
+		returnString += "No transactions recorded yet!\n";
+	}
 	for (const Transaction transaction : transactions)
 	{
 		returnString += "~\n" + transaction.getTransactionName() + "\n";
@@ -44,20 +49,8 @@ string User::toString()
 {
 	string returnString = "#\n" + this->username + "\n" + this->password + "\n" + to_string(this->accountNumber) + "\n" + to_string(this->balance) + "\n";
 
-	if (transactions.empty())
-	{
-		returnString += "User has no transactions recorded yet!\n\n";
-	}
-	else
-	{
-		for (const Transaction transaction : transactions)
-		{
-			returnString += "~\n" + transaction.getTransactionName() + "\n";
-			returnString += to_string(transaction.getTransactionAmount()) + "\n";
-			returnString += transaction.getDateTime() + "\n";
-		}
-		returnString += "\n";
-	}
+
+	returnString += getTransactionHistory(); //since getTransactionHistory is already getting our transactions, just add the string it returns to our toString here
 	return returnString;
 }
 
