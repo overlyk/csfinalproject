@@ -102,7 +102,6 @@ void AccountManager::userLogin()
 			cout << "Your balance is: $" << user->getBalance() << endl;
 			break;
 		case 2:
-			//remove extra text?
 			cout << "Your history is: \n" << user->getTransactionHistory() << endl;
 			break;
 		case 3:
