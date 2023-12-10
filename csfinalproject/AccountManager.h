@@ -13,10 +13,13 @@ private:
 	map<string, Account*> accountMap;
 	void setupManagers(string filePath);
 	void setupUsers(string filePath);
+	Account* loginAccount;
+
 public:
 	AccountManager(string managerPath, string accountPath);
-	//~AccountManager();
-	//void userLogin();
-	//void managerLogin();
+	~AccountManager();
+	bool authenticate();
+	void userLogin();
+	void managerLogin();
 	//void createAccount();
 };

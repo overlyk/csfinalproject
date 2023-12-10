@@ -13,9 +13,9 @@ protected:
 
 public:
 	Account();
-	string virtual getUsername();
-	string virtual getPassword();
-	//bool virtual login(Account account);
+	virtual string getUsername();
+	virtual string getPassword();
+	virtual string toString();
 
 
 };

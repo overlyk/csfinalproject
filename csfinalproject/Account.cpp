@@ -9,18 +9,11 @@ Account::Account()
 {
 
 }
-//
+
 //bool Account::login(Account account)
 //{
-//	cout << "Passed just an account" << endl;
 //	return true;
 //}
-
-
-bool Account::login(Account account)
-{
-	return true;
-}
 
 string Account::getPassword()
 {
@@ -29,4 +22,9 @@ string Account::getPassword()
 string Account::getUsername()
 {
 	return this->username;
+}
+string Account::toString()
+{
+	string returnString = "#\n" + this->username + "\n" + this->password + "\n";
+	return returnString;
 }
