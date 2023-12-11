@@ -31,18 +31,23 @@ void AccountManager::createAccount()
 
 		
 		ofstream outputFile("userdata.txt", ios::app);
-
 		if (outputFile.is_open()) { //Writes to userdata.txt
 			outputFile << endl;
 			outputFile << "#" << endl;
 			outputFile << newUsername << endl;
 			outputFile << newPassword << endl;
-			outputFile.close();
-			cout << "Data written to the file successfully.";
+			
+			cout << "Data written to the file successfully." << endl;
 		}
 		else {
 			cout << "Unable to open the file for writing.";
 		}
+		//=====================================================================
+		
+		// ***Add get new account number and create the account number in here***
+		
+		//===============================================
+		
 		accountMap[newUsername] = new Manager(newUsername, newPassword); // Account map
 
 }
