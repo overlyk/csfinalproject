@@ -22,7 +22,7 @@ int main()
         switch (option)
         {
         case 1:
-            //accountManager.createAccount();
+            accountManager.createAccount();
             break;
         case 2:
             accountManager.userLogin();

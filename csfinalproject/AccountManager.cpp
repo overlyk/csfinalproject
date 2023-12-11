@@ -18,7 +18,34 @@ AccountManager::~AccountManager()
 {
 
 }
+void AccountManager::createAccount()
+{
+	
+		string newUsername;
+		string newPassword;
+		
 
+		cout << "Enter a user: "; cin >> newUsername;
+		cout << "Enter a password: "; cin >> newPassword;
+		cout << "User: " + newUsername + " Password: " + newPassword << endl; // Test if  the user/pass gets set
+
+		
+		ofstream outputFile("userdata.txt", ios::app);
+
+		if (outputFile.is_open()) { //Writes to userdata.txt
+			outputFile << endl;
+			outputFile << "#" << endl;
+			outputFile << newUsername << endl;
+			outputFile << newPassword << endl;
+			outputFile.close();
+			cout << "Data written to the file successfully.";
+		}
+		else {
+			cout << "Unable to open the file for writing.";
+		}
+		accountMap[newUsername] = new Manager(newUsername, newPassword); // Account map
+
+}
 //contains main loop for authenticating a login to be used for any class type
 //3 attempts to login allowed
 //if account is valid, set address to loginAccount pointer to address of account in map
