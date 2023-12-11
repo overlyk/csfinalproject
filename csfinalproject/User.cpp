@@ -16,6 +16,7 @@ User::User(string username, string password, int accountNumber, double balance)
 	this->password = password;
 	this->accountNumber = accountNumber;
 	this->balance = balance;
+	this->isAdmin = false;
 }
 //returns our history as a string so we can isolate our transaction data when requesting it as a user
 string User::getTransactionHistory()
@@ -23,7 +24,7 @@ string User::getTransactionHistory()
 	string returnString = "";
 	if (transactions.empty())
 	{
-		returnString += "No transactions recorded yet!\n";
+		returnString += "No transactions recorded yet!";
 	}
 	for (const Transaction transaction : transactions)
 	{
@@ -67,6 +68,7 @@ void User::withdraw()
 		
 		cout << "Withdrawal amount: ";
 		cin >> withdrawAmount;
+
 		if (withdrawAmount == -1)
 		{
 			return;
@@ -81,9 +83,11 @@ void User::withdraw()
 		}
 		else
 		{
-			cout << "Enter name/reason for withdrawal: ";
-			cin >> withdrawName;
 
+			cout << "Enter name/reason for withdrawal: ";
+			//getline instead of cin used so that a reason for withdraw/deposit can have a space
+			cin.ignore();	//clears the input buffer of an leftover "\n" character from using cin
+			getline(cin, withdrawName); //grabs entire input buffer up until we hit a "\n" character
 			balance = balance - withdrawAmount;
 
 			//my_time is used to store pointer to address that stores current system clock time (automatic when initialized as NULL)
@@ -92,7 +96,7 @@ void User::withdraw()
 			time_t my_time = time(NULL); 
 			addTransaction(ctime(&my_time), withdrawName, withdrawAmount);
 
-			cout << "Your balance is now: " << this->balance << endl;
+			cout << "Your balance is now: $" << this->balance << "\n" << endl;
 			isValidWithdraw = true;
 		}
 	}
@@ -123,7 +127,10 @@ void User::deposit()
 		else
 		{
 			cout << "Enter name/reason for deposit: ";
-			cin >> depositName;
+
+			//getline instead of cin used so that a reason for withdraw/deposit can have a space
+			cin.ignore(); //clears the input buffer of any "\n" character left from cin that causes getline() to fail
+			getline(cin, depositName); //reads input buffer up until it hits a "\n" character
 
 			this->balance = this->balance + depositAmount;
 
@@ -133,7 +140,7 @@ void User::deposit()
 			time_t my_time = time(NULL);
 			addTransaction(ctime(&my_time), depositName, depositAmount);
 
-			cout << "Your balance is now: " << this->balance << endl;
+			cout << "Your balance is now: $" << this->balance << "\n" << endl;
 			isValidDeposit = true;
 		}
 	}
