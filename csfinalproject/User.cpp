@@ -68,6 +68,7 @@ void User::withdraw()
 		
 		cout << "Withdrawal amount: ";
 		cin >> withdrawAmount;
+
 		if (withdrawAmount == -1)
 		{
 			return;
@@ -82,9 +83,11 @@ void User::withdraw()
 		}
 		else
 		{
-			cout << "Enter name/reason for withdrawal: ";
-			cin >> withdrawName;
 
+			cout << "Enter name/reason for withdrawal: ";
+			//getline instead of cin used so that a reason for withdraw/deposit can have a space
+			cin.ignore();	//clears the input buffer of an leftover "\n" character from using cin
+			getline(cin, withdrawName); //grabs entire input buffer up until we hit a "\n" character
 			balance = balance - withdrawAmount;
 
 			//my_time is used to store pointer to address that stores current system clock time (automatic when initialized as NULL)
@@ -124,7 +127,10 @@ void User::deposit()
 		else
 		{
 			cout << "Enter name/reason for deposit: ";
-			cin >> depositName;
+
+			//getline instead of cin used so that a reason for withdraw/deposit can have a space
+			cin.ignore(); //clears the input buffer of any "\n" character left from cin that causes getline() to fail
+			getline(cin, depositName); //reads input buffer up until it hits a "\n" character
 
 			this->balance = this->balance + depositAmount;
 
