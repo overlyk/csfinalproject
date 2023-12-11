@@ -10,11 +10,6 @@ Account::Account()
 
 }
 
-//bool Account::login(Account account)
-//{
-//	return true;
-//}
-
 string Account::getPassword()
 {
 	return this->password;
@@ -27,4 +22,9 @@ string Account::toString()
 {
 	string returnString = "#\n" + this->username + "\n" + this->password + "\n";
 	return returnString;
+}
+
+bool Account::getIsAdmin()
+{
+	return this->isAdmin;
 }

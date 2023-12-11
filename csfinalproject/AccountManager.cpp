@@ -45,8 +45,6 @@ bool AccountManager::authenticate()
 
 			if (accountMap[username]->getPassword() == password)
 			{
-				cout << "Welcome " << username << "!!" << endl;
-				cout << "Logging in... \n" << endl;
 				loginAccount = accountMap[username]; //update pointer to valid user memory address
 				return true;
 			}
@@ -76,12 +74,15 @@ void AccountManager::userLogin()
 	//use authenticate() to check if login is true or false
 	//if true, assign our pointer to the accounts memory address
 	//if false, explicitly exit out of the login process back to main menu
-	if (authenticate()) 
+	if (authenticate() && (loginAccount->getIsAdmin() == false)) 
 	{
-		user = (User*)loginAccount; 
+		user = (User*)loginAccount;
+		cout << "Welcome " << user->getUsername() << "!!" << endl;
+		cout << "Logging in... \n" << endl;
 	}
 	else
 	{
+		cout << "Invalid login. Please try again.\n" << endl;
 		return;
 	}
 
@@ -99,10 +100,10 @@ void AccountManager::userLogin()
 		switch (option)
 		{
 		case 1:
-			cout << "Your balance is: $" << user->getBalance() << endl;
+			cout << "Your balance is: $" << user->getBalance() << "\n" << endl;
 			break;
 		case 2:
-			cout << "Your history is: \n" << user->getTransactionHistory() << endl;
+			cout << "Your history is: \n" << user->getTransactionHistory() << "\n" << endl;
 			break;
 		case 3:
 			user->withdraw();
@@ -129,12 +130,15 @@ void AccountManager::managerLogin()
 	//use authenticate() to check if login is true or false
 	//if true, assign our manager pointer to the accounts memory address
 	//if false, explicitly exit out of the login process back to main menu
-	if (authenticate())
+	if (authenticate() && loginAccount->getIsAdmin())
 	{
 		manager = (Manager*)loginAccount;
+		cout << "Welcome " << manager->getUsername() << "!!" << endl;
+		cout << "Logging in... \n" << endl;
 	}
 	else
 	{
+		cout << "Invalid login. Please try again.\n" << endl;
 		return;
 	}
 
@@ -157,10 +161,10 @@ void AccountManager::managerLogin()
 			cout << "Username of account you want the information of: ";
 			cin >> userUsername;
 
-			if (accountMap.count(userUsername) == 1)
+			if ((accountMap.count(userUsername) == 1) && (accountMap[userUsername]->getIsAdmin() == false))
 			{
 				userChoice = (User*)accountMap[userUsername];
-				cout << userChoice->toString() + "\n";
+				cout << userChoice->toString() + "\n" << endl;
 			}
 			else
 			{

@@ -16,6 +16,7 @@ User::User(string username, string password, int accountNumber, double balance)
 	this->password = password;
 	this->accountNumber = accountNumber;
 	this->balance = balance;
+	this->isAdmin = false;
 }
 //returns our history as a string so we can isolate our transaction data when requesting it as a user
 string User::getTransactionHistory()
@@ -23,7 +24,7 @@ string User::getTransactionHistory()
 	string returnString = "";
 	if (transactions.empty())
 	{
-		returnString += "No transactions recorded yet!\n";
+		returnString += "No transactions recorded yet!";
 	}
 	for (const Transaction transaction : transactions)
 	{
@@ -92,7 +93,7 @@ void User::withdraw()
 			time_t my_time = time(NULL); 
 			addTransaction(ctime(&my_time), withdrawName, withdrawAmount);
 
-			cout << "Your balance is now: " << this->balance << endl;
+			cout << "Your balance is now: $" << this->balance << "\n" << endl;
 			isValidWithdraw = true;
 		}
 	}
@@ -133,7 +134,7 @@ void User::deposit()
 			time_t my_time = time(NULL);
 			addTransaction(ctime(&my_time), depositName, depositAmount);
 
-			cout << "Your balance is now: " << this->balance << endl;
+			cout << "Your balance is now: $" << this->balance << "\n" << endl;
 			isValidDeposit = true;
 		}
 	}
