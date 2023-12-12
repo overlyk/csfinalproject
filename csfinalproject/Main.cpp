@@ -16,8 +16,23 @@ int main()
     while (option != 4)
     {
         cout << "Welcome to the main menu" << endl;
-        cout << "1: Create Account\n2: User Login\n3: Manager Login\n4: Exit\nSelect an option: ";
-        cin >> option;
+        bool invalidInput = true;
+        while (invalidInput)
+        {
+            cout << "1: Create Account\n2: User Login\n3: Manager Login\n4: Exit\nSelect an option: ";
+            cin >> option;
+            if (cin.fail())
+            {
+                cin.clear();
+                cin.sync();
+                cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+                cout << "Please enter a valid option! " << endl;
+            }
+            else
+            {
+                invalidInput = false;
+            }
+        }
         cout << endl;
         switch (option)
         {
