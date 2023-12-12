@@ -16,7 +16,13 @@ AccountManager::AccountManager(string managerPath, string accountPath)
 
 AccountManager::~AccountManager()
 {
-
+	map<string, Account*>::iterator it = this->accountMap.begin();
+	while (it != accountMap.end())
+	{
+		Account* account = it->second;
+		delete account;
+		it++;
+	}
 }
 
 //contains main loop for authenticating a login to be used for any class type
@@ -335,7 +341,6 @@ void AccountManager::saveUsers()
 	map<string, Account*>::iterator it = this->accountMap.begin();
 	while (it != accountMap.end())
 	{
-		//string username = it->first;
 		Account* account = it->second;
 		if (!account->getIsAdmin())
 		{
@@ -343,6 +348,7 @@ void AccountManager::saveUsers()
 		}
 		it++;
 	}
+	outputFile.close();
 
 	
 }
