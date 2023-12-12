@@ -60,7 +60,7 @@ void User::withdraw()
 	cout << "Withdraw Cash -  Type -1 to Exit" << endl;
 	bool isValidWithdraw = false;
 
-	int withdrawAmount;
+	double withdrawAmount;
 	string withdrawName;
 
 	while (!isValidWithdraw)
@@ -94,7 +94,7 @@ void User::withdraw()
 			//ctime() translates the DateTime at that memory address into a string
 			//suppress compiler warning by defining _CRT_SECURE_NO_WARNINGS by include statements
 			time_t my_time = time(NULL); 
-			addTransaction(ctime(&my_time), withdrawName, withdrawAmount);
+			addTransaction(ctime(&my_time), withdrawName, -withdrawAmount);
 
 			cout << "Your balance is now: $" << this->balance << "\n" << endl;
 			isValidWithdraw = true;
@@ -107,7 +107,7 @@ void User::deposit()
 	cout << "Deposit Cash -  Type -1 to Exit" << endl;
 	bool isValidDeposit = false;
 
-	int depositAmount;
+	double depositAmount;
 	string depositName;
 
 	while (!isValidDeposit)
