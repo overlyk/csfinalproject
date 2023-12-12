@@ -3,6 +3,9 @@
 #include "User.h"
 #include <fstream>
 #include <iostream>
+#include <sstream>
+#include <iomanip>
+
 using namespace std;
 
 AccountManager::AccountManager(string managerPath, string accountPath) 
@@ -11,7 +14,7 @@ AccountManager::AccountManager(string managerPath, string accountPath)
 	setupManagers(managerPath);
 	setupUsers(accountPath);
 	loginAccount = NULL;
-	accountMap["testUser"] = new User("testUser", "testPass",10101, 200);
+	//accountMap["testUser"] = new User("testUser", "testPass",10101, 200);
 }
 
 AccountManager::~AccountManager()
@@ -42,7 +45,23 @@ bool AccountManager::authenticate()
 		cout << count << " login attempts remaining.\n" << endl;
 
 		cout << "Username: ";
-		cin >> username;
+		bool invalidInput = true;
+		while (invalidInput)
+		{
+			cin >> username;
+			if (cin.fail())
+			{
+				cin.clear();
+				cin.sync();
+				cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+				cout << "Please type a valid string";
+			}
+			else
+			{
+				invalidInput = false;
+			}
+		}
+
 
 		if (accountMap.count(username) == 1) //if username is a valid key in the map
 		{
@@ -100,17 +119,58 @@ void AccountManager::userLogin()
 	while (loggedIn)
 	{
 		cout << "Main User Menu" << endl;
-		cout << "1: Print Balance\n2: Print History\n3: Withdraw\n4: Deposit\n5: Log out\nSelect an Option: ";
-		cin >> option;
+		bool invalidInput = true;
+		while (invalidInput)
+		{
+			cout << "1: Print Balance\n2: Print History\n3: Withdraw\n4: Deposit\n5: Log out\nSelect an Option: ";
+			cin >> option;
+			if (cin.fail())
+			{
+				cin.clear();
+				cin.sync();
+				cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+				cout << "Please enter a valid option! " << endl;
+			}
+			else
+			{
+				invalidInput = false;
+			}
+		}
+
+		int count = 0;
 		cout << endl;
 		switch (option)
 		{
 		case 1:
-			cout << "Your balance is: $" << user->getBalance() << "\n" << endl;
+			cout << "Your balance is: $" << fixed << setprecision(2) << user->getBalance() << "\n" << endl;
 			break;
 		case 2:
-			cout << "Your history is: \n" << user->getTransactionHistory() << "\n" << endl;
+		{
+			cout << "Your history is: \n";
+			istringstream f(user->getTransactionHistory());
+			string line;
+			while (getline(f, line))
+			{
+
+				if (line.at(0) == '~') //transaction found, grab next three lines and format here
+				{
+					cout << endl;
+					getline(f, line);
+					cout << "Transaction: " + line << endl;
+					getline(f, line);
+					cout << "Amount: $" + line.substr(0,(line.find('.') + 3)) << endl;
+					getline(f, line);
+					cout << "Time: " + line << endl;
+				}
+				else
+				{
+					cout << line << endl;
+				}
+				count += 1;
+			}
+			cout << endl;
 			break;
+		}
 		case 3:
 			user->withdraw();
 			this->saveUsers();
@@ -159,8 +219,25 @@ void AccountManager::managerLogin()
 	while (loggedIn)
 	{
 		cout << "Main Manager Menu" << endl;
-		cout << "1: Print User Data\n2: Log out\nSelect an Option: ";
-		cin >> option;
+
+		bool invalidInput = true;
+		while (invalidInput)
+		{
+			cout << "1: Print User Data\n2: Log out\nSelect an Option: ";
+			cin >> option;
+			if (cin.fail())
+			{
+				cin.clear();
+				cin.sync();
+				cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+				cout << "Please enter a valid option! " << endl;
+			}
+			else
+			{
+				invalidInput = false;
+			}
+		}
+
 		cout << endl;
 		switch (option)
 		{
@@ -172,12 +249,55 @@ void AccountManager::managerLogin()
 			if ((accountMap.count(userUsername) == 1) && (accountMap[userUsername]->getIsAdmin() == false))
 			{
 				userChoice = (User*)accountMap[userUsername];
-				cout << userChoice->toString() + "\n" << endl;
+				int count = 0;
+				istringstream f(userChoice->toString());
+				string line;
+				while (getline(f, line)) 
+				{
+					if (count == 0)
+					{
+						cout << "\n";
+					}
+					else if (count == 1)
+					{
+						cout << "Username: " + line << endl;
+					}
+					else if (count == 2)
+					{
+						cout << "Password: " + line << endl;
+					}
+					else if (count == 3)
+					{
+						cout << "Account: " + line << endl;
+					}
+					else if (count == 4)
+					{
+						cout << "Balance: $" + line.substr(0, (line.find('.') + 3)) + "\n" << endl;
+						cout << "~Account Transactions~";
+					}
+					else if (line.at(0) == '~') //transaction found, grab next three lines and format here
+					{
+						cout << endl;
+						getline(f, line);
+						cout << "Transaction: " + line << endl;
+						getline(f, line);
+						cout << "Amount: $" + line.substr(0, (line.find('.') + 3)) << endl;
+						getline(f, line);
+						cout << "Time: " + line << endl;
+					}
+					else
+					{
+						cout << line << endl;
+					}
+					count += 1;
+				}
+
 			}
 			else
 			{
 				cout << "User does not exist " << endl;
 			}
+			cout << endl;
 			break;
 		case 2:
 			cout << "Goodbye. \n" << endl;

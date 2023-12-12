@@ -65,9 +65,23 @@ void User::withdraw()
 
 	while (!isValidWithdraw)
 	{
-		
-		cout << "Withdrawal amount: ";
-		cin >> withdrawAmount;
+		bool invalidInput = true;
+		while (invalidInput)
+		{
+			cout << "Withdrawal amount: $";
+			cin >> withdrawAmount;
+			if (cin.fail())
+			{
+				cin.clear();
+				cin.sync();
+				cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+				cout << "Please enter a valid number " << endl;
+			}
+			else
+			{
+				invalidInput = false;
+			}
+		}
 
 		if (withdrawAmount == -1)
 		{
@@ -96,7 +110,7 @@ void User::withdraw()
 			time_t my_time = time(NULL); 
 			addTransaction(ctime(&my_time), withdrawName, -withdrawAmount);
 
-			cout << "Your balance is now: $" << this->balance << "\n" << endl;
+			cout << "Transaction added successfully\n" << endl;
 			isValidWithdraw = true;
 		}
 	}
@@ -112,9 +126,23 @@ void User::deposit()
 
 	while (!isValidDeposit)
 	{
-
-		cout << "Deposit amount: ";
-		cin >> depositAmount;
+		bool invalidInput = true;
+		while (invalidInput)
+		{
+			cout << "Deposit amount: $";
+			cin >> depositAmount;
+			if (cin.fail())
+			{
+				cin.clear();
+				cin.sync();
+				cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+				cout << "Please enter a valid number! " << endl;
+			}
+			else
+			{
+				invalidInput = false;
+			}
+		}
 
 		if (depositAmount == -1)
 		{
@@ -140,7 +168,7 @@ void User::deposit()
 			time_t my_time = time(NULL);
 			addTransaction(ctime(&my_time), depositName, depositAmount);
 
-			cout << "Your balance is now: $" << this->balance << "\n" << endl;
+			cout << "Transaction added successfully\n" << endl;
 			isValidDeposit = true;
 		}
 	}
