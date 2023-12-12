@@ -215,7 +215,7 @@ void AccountManager::setupManagers(string filePath)
 			}
 		}
 	}
-	//probably need to close inputFile here
+	inputFile.close();
 }
 
 void AccountManager::setupUsers(string userPath)
@@ -224,6 +224,7 @@ void AccountManager::setupUsers(string userPath)
 	ifstream inputFile(userPath);
 	if (inputFile.is_open())
 	{
+		this->userPath = userPath;
 		string line;
 		int linePosition = 0;
 		bool isReadingTransactionHistory = false;
@@ -232,8 +233,11 @@ void AccountManager::setupUsers(string userPath)
 		int currentAccountNumber;
 		double currentAccountBalance;
 		bool isError;
-		User* currentUser;
+		User* currentUser = nullptr;
 		
+		string currentTransactionName;
+		double currentTransactionAmount;
+		string currentTransactionDateTime;
 		while (getline(inputFile, line))
 		{
 			if (line == "#")
@@ -254,9 +258,54 @@ void AccountManager::setupUsers(string userPath)
 				case 1:
 					currentUsername = line;
 					break;
-
+				case 2:
+					currentPassword = line;
+					break;
+				case 3:
+					currentAccountNumber = stoi(line);
+					if (currentAccountNumber > this->highestAccountNum)
+					{
+						this->highestAccountNum = currentAccountNumber;
+					}
+				case 4:
+					currentAccountBalance = stod(line);
+					currentUser = new User(currentUsername, currentPassword, currentAccountNumber, currentAccountBalance);
+					accountMap[currentUsername] = currentUser;
+					break;
 				}
+				linePosition++;
+			}
+			else
+			{
+				switch (linePosition)
+				{
+				case 1:
+					currentTransactionName = line;
+					break;
+				case 2:
+					currentTransactionAmount = stod(line);
+					break;
+				case 3:
+					currentTransactionDateTime = line;
+					if (currentUser != nullptr)
+					{
+						currentUser->addTransaction(currentTransactionDateTime, currentTransactionName, currentTransactionAmount);
+					}
+					break;
+				}
+				linePosition++;
 			}
 		}
 	}
+	inputFile.close();
+}
+int AccountManager::getNextAccountNum()
+{
+	return ++this->highestAccountNum;
+}
+void AccountManager::saveUsers()
+{
+	//ofstream outputFile;
+	//outputFile.open(this->userPath, ios::trunc);//the ios::trunc makes it clear out existing text, https://cplusplus.com/doc/tutorial/files/
+	
 }
