@@ -186,6 +186,29 @@ void AccountManager::managerLogin()
 
 }
 
+void AccountManager::createAccount()
+{
+	string username;
+	string password;
+	double startingBalance = -1;
+	cout << "Enter new username: ";
+	cin >> username;
+	cout << "Enter new password: ";
+	cin >> password;
+	while (startingBalance < 0)
+	{
+		cout << "Enter starting balance: ";
+		cin >> startingBalance;
+		if (startingBalance < 0)
+		{
+			cout << "Please enter a positive number." << endl;
+		}
+	}
+	accountMap[username] = new User(username, password, this->getNextAccountNum(), startingBalance);
+	cout << "New user created." << endl;
+	this->saveUsers();
+}
+
 void AccountManager::setupManagers(string filePath)
 {
 	ifstream inputFile(filePath);

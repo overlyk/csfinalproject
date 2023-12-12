@@ -23,5 +23,5 @@ public:
 	bool authenticate();
 	void userLogin();
 	void managerLogin();
-	//void createAccount();
+	void createAccount();
 };
