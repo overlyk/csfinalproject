@@ -3,7 +3,6 @@
 #include "User.h"
 #include <fstream>
 #include <iostream>
-#include <algorithm>
 using namespace std;
 
 AccountManager::AccountManager(string managerPath, string accountPath) 
