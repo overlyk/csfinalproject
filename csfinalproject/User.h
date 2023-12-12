@@ -17,7 +17,6 @@ private:
 
 public:
 	User(string username, string password, int accountNumber, double balance);
-	~User();
 	string getTransactionHistory();
 	int getAccountNumber();
 	double getBalance();
