@@ -107,9 +107,11 @@ void AccountManager::userLogin()
 			break;
 		case 3:
 			user->withdraw();
+			this->saveUsers();
 			break;
 		case 4:
 			user->deposit();
+			this->saveUsers();
 			break;
 		case 5:
 			cout << "Goodbye. \n" << endl;
@@ -305,7 +307,19 @@ int AccountManager::getNextAccountNum()
 }
 void AccountManager::saveUsers()
 {
-	//ofstream outputFile;
-	//outputFile.open(this->userPath, ios::trunc);//the ios::trunc makes it clear out existing text, https://cplusplus.com/doc/tutorial/files/
+	ofstream outputFile;
+	outputFile.open(this->userPath, ios::trunc);//the ios::trunc makes it clear out existing text, https://cplusplus.com/doc/tutorial/files/
+	map<string, Account*>::iterator it = this->accountMap.begin();
+	while (it != accountMap.end())
+	{
+		//string username = it->first;
+		Account* account = it->second;
+		if (!account->getIsAdmin())
+		{
+			outputFile << account->toString();
+		}
+		it++;
+	}
+
 	
 }
