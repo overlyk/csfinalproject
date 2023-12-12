@@ -9,11 +9,13 @@ class AccountManager
 {
 private:
 	int highestAccountNum;
-	//int getNextAccountNum();
+	int getNextAccountNum();
 	map<string, Account*> accountMap;
 	void setupManagers(string filePath);
 	void setupUsers(string filePath);
+	void saveUsers();
 	Account* loginAccount;
+	string userPath;
 
 public:
 	AccountManager(string managerPath, string accountPath);
