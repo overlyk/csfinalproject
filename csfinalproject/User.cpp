@@ -24,7 +24,7 @@ string User::getTransactionHistory()
 	string returnString = "";
 	if (transactions.empty())
 	{
-		returnString += "No transactions recorded yet!";
+		returnString += "No transactions recorded yet!\n";
 	}
 	for (const Transaction transaction : transactions)
 	{
