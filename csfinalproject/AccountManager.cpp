@@ -152,7 +152,7 @@ void AccountManager::userLogin()
 			while (getline(f, line))
 			{
 
-				if (line.at(0) == '~') //transaction found, grab next three lines and format here
+				if (line == "~") //transaction found, grab next three lines and format here
 				{
 					cout << endl;
 					getline(f, line);
