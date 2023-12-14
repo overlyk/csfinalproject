@@ -275,7 +275,7 @@ void AccountManager::managerLogin()
 						cout << "Balance: $" + line.substr(0, (line.find('.') + 3)) + "\n" << endl;
 						cout << "~Account Transactions~";
 					}
-					else if (line.at(0) == '~') //transaction found, grab next three lines and format here
+					else if (line == "~") //transaction found, grab next three lines and format here
 					{
 						cout << endl;
 						getline(f, line);
